@@ -1,23 +1,14 @@
-const SET_ARTIST_ACTIVE = "artist/SET_ARTIST_ACTIVE";
-
-export const setArtist = (payload) => {
-  return {
-    type: SET_ARTIST_ACTIVE,
-    payload,
-  };
-};
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = "";
 
-const activeArtist = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_ARTIST_ACTIVE: {
-      const activeArtist = action.payload;
-      return activeArtist;
-    }
-    default:
-      return state;
-  }
-};
+const activeArtistSlice = createSlice({
+  name: "activeArtist",
+  initialState,
+  reducers: {
+    setArtist: (state, action) => action.payload,
+  },
+});
 
-export default activeArtist;
+export const { setArtist } = activeArtistSlice.actions;
+export default activeArtistSlice.reducer;
