@@ -7,19 +7,18 @@ import Profile from "pages/Profile";
 import { useState } from "react";
 
 const Router = () => {
-  const [isLoggedIn, setLoginState] = useState(true);
+  const [isLoggedIn, setLoginState] = useState(false);
 
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
         {isLoggedIn ? (
-          <>
+          <Route element={<Header />}>
             <Route path="/" element={<Home />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<Navigate to="/" />} />
-          </>
+          </Route>
         ) : (
           <>
             <Route path="/login" element={<Login />} />

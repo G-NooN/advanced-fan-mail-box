@@ -4,6 +4,7 @@ import {
   HeaderContent,
   StrongText,
 } from "components/styles/HeaderStyle";
+import { Outlet } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -15,6 +16,7 @@ const Header = () => {
           <StrongText>[ React 4 ]</StrongText> 의 팬레터함입니다.{" "}
         </HeaderContent>
       </StyledHeader>
+      <Outlet />
     </>
   );
 };
