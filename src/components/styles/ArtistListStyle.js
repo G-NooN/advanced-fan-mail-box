@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 
+// 아티스트 ul
 const ArtistsContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -12,6 +13,7 @@ const ArtistsContainer = styled.ul`
   border-radius: 5px;
 `;
 
+// 성별에 따라 background 구분
 const setArtistBackground = (artistName) => {
   switch (artistName) {
     case "최예지":
@@ -26,11 +28,13 @@ const setArtistBackground = (artistName) => {
   }
 };
 
+// 아티스트 li
 const Artist = styled.li`
   width: 120px;
   margin: 10px;
   padding: 10px;
 
+  // 선택한 아티스트만 background 적용, 나머지는 white
   ${(props) => {
     if (props.$activeArtist === props.children) {
       return setArtistBackground(props.children);
@@ -45,6 +49,7 @@ const Artist = styled.li`
   text-align: center;
   font-weight: 700;
 
+  // 성별에 따라 text-color 구분
   ${(props) => {
     switch (props.children) {
       case "최예지":
@@ -61,6 +66,7 @@ const Artist = styled.li`
   cursor: pointer;
   transition: all 0.2s;
 
+  // hover 시 background 변경
   &:hover {
     ${(props) => {
       return setArtistBackground(props.children);

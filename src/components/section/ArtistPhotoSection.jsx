@@ -36,7 +36,9 @@ const ArtistPhotoSection = ({ foundMail }) => {
   const artistPhoto = pickArtistPhoto(foundMail.writedTo);
   return (
     <SectionContainer>
+      {/* 아티스트 이름 */}
       <SectionTitle>Artist {foundMail.writedTo}</SectionTitle>
+      {/* 아티스트 사진 */}
       <ArtistPhotoContainer>
         <ArtistPhoto src={artistPhoto} />
       </ArtistPhotoContainer>

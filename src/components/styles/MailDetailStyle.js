@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 메일 상세보기 container
 const MailDetailContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,11 +13,13 @@ const MailDetailContainer = styled.div`
   border-radius: 5px;
 `;
 
+// 작성자 정보 container
 const WriterInfoContainer = styled.div`
   display: flex;
   gap: 5px;
 `;
 
+// 받는 사람 정보 container
 const ReceiverInfoContainer = styled.div`
   display: flex;
   margin: 0 10px;
@@ -25,6 +28,7 @@ const ReceiverInfoContainer = styled.div`
   font-weight: 700;
 `;
 
+// 메일 전체 내용 출력 section
 const FullMailContent = styled.p`
   width: 720px;
   margin: 0 20px;
@@ -35,6 +39,7 @@ const FullMailContent = styled.p`
   line-height: 1.5;
 `;
 
+// 메일 내용 수정 section
 const EditMailArea = styled.textarea`
   width: 720px;
   margin: 0 20px;

@@ -9,7 +9,9 @@ const Home = () => {
   const filteredMailList = mailList.filter((mail) => mail.writedTo === activeArtist);
   return (
     <PageContainer>
+      {/* 메일 추가 section */}
       <AddMailSection />
+      {/* 메일 출력 section */}
       <MailListSection filteredMailList={filteredMailList} />
     </PageContainer>
   );

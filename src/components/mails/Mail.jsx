@@ -10,15 +10,19 @@ const Mail = ({ mail }) => {
   const navigate = useNavigate();
 
   return (
+    // 클릭 시 세부 페이지로 이동
     <MailContainer onClick={() => navigate(`/detail/${mail.id}`)}>
       <Avatar>
         <img src={mail.avatar || defaultAvatar} alt="avatar" />
       </Avatar>
+      {/* 메일 정보 */}
       <MailInfo>
+        {/* 작성자 정보 */}
         <WriterInfo>
           <Nickname>{mail.nickname}</Nickname>
           <time>{formattedDate}</time>
         </WriterInfo>
+        {/* 메일 내용 (1줄) */}
         <MailContent>{mail.content}</MailContent>
       </MailInfo>
     </MailContainer>

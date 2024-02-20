@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 메일 리스트 ul
 const MailListContainer = styled.ul`
   display: flex;
   flex-direction: column;
@@ -7,6 +8,7 @@ const MailListContainer = styled.ul`
   margin: 10px 0;
 `;
 
+// 메일 li
 const MailContainer = styled.li`
   display: flex;
   width: 600px;
@@ -23,6 +25,7 @@ const MailContainer = styled.li`
   }
 `;
 
+// 메일 정보 container
 const MailInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,6 +34,7 @@ const MailInfo = styled.div`
   margin: 15px 5px;
 `;
 
+// 메일 내용을 1줄만 출력하는 section
 const MailContent = styled.p`
   background-color: white;
   border-radius: 5px;

@@ -10,7 +10,9 @@ const Detail = () => {
   const foundMail = mailList.find((mail) => mail.id === id);
   return (
     <PageContainer>
+      {/* 아티스트 사진 section */}
       <ArtistPhotoSection foundMail={foundMail} />
+      {/* 메일 상세정보 출력 section */}
       <MailDetailSection id={id} foundMail={foundMail} />
     </PageContainer>
   );
