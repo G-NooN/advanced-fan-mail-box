@@ -10,6 +10,7 @@ import { CommonContext } from "context/CommonContext";
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { removeMail, updateMail } from "shared/redux/modules/mailListSlice";
 
 const MailDetail = ({ id, foundMail }) => {
@@ -30,17 +31,17 @@ const MailDetail = ({ id, foundMail }) => {
     const checkCancelEdit = window.confirm("수정을 취소하시겠습니까?");
     if (!checkCancelEdit) return;
     setEditMail(false);
-    alert("취소되었습니다.");
+    toast.success("취소되었습니다.");
   };
   // [수정완료] 버튼 클릭
   const editMailDone = () => {
     // 수정된 내용이 없는 경우
     if (!editedContent) {
-      return alert("수정된 내용이 없습니다.");
+      return toast.warning("수정된 내용이 없습니다.");
     }
     // 수정된 내용이 존재하는 경우
     dispatch(updateMail({ id, editedContent }));
-    alert("수정되었습니다.");
+    toast.success("팬레터가 정상적으로 수정되었습니다.");
     setEditMail(false);
     setEditedContent("");
   };
@@ -49,7 +50,7 @@ const MailDetail = ({ id, foundMail }) => {
     const checkDeleteMail = window.confirm("정말 삭제하시겠습니까?");
     if (!checkDeleteMail) return;
     dispatch(removeMail(id));
-    alert("삭제되었습니다.");
+    toast.success("팬레터가 정상적으로 삭제되었습니다.");
     navigate("/");
   };
 

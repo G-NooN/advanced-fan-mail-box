@@ -7,6 +7,7 @@ import {
 import useForm from "hooks/useForm";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { setLoginState } from "shared/redux/modules/authSlice";
 
 function Login() {
@@ -28,11 +29,11 @@ function Login() {
     const buttonType = e.nativeEvent.submitter.name;
     if (buttonType === "signUp") {
       setSignUpPage(false);
-      alert("회원가입이 완료되었습니다.");
+      toast.success("회원가입 되었습니다.");
       resetForm();
     } else if (buttonType === "login") {
       dispatch(setLoginState(true));
-      alert("로그인 되었습니다.");
+      toast.success("로그인 되었습니다.");
     } else return;
   };
 
