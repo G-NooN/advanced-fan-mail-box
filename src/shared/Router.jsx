@@ -4,10 +4,10 @@ import Home from "pages/Home";
 import Detail from "pages/Detail";
 import Login from "pages/Login";
 import Profile from "pages/Profile";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Router = () => {
-  const [isLoggedIn, setLoginState] = useState(false); // 로그인 상태
+  const isLoggedIn = useSelector((state) => state.auth); // 로그인 상태
 
   return (
     <BrowserRouter>

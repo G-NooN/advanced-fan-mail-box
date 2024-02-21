@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import activeArtistSlice from "shared/redux/modules/activeArtistSlice";
-import mailListSlice from "shared/redux/modules/mailListSlice";
+import activeArtist from "shared/redux/modules/activeArtistSlice";
+import mailList from "shared/redux/modules/mailListSlice";
+import auth from "shared/redux/modules/authSlice";
 
 const store = configureStore({
-  reducer: { activeArtistSlice, mailListSlice },
+  reducer: { activeArtist, mailList, auth },
 });
 
 export default store;
