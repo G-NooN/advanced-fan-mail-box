@@ -4,6 +4,7 @@ import {
   LoginPageDiv,
   LoginSectionTitle,
 } from "components/styles/LoginPageStyle";
+import useForm from "hooks/useForm";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setLoginState } from "shared/redux/modules/authSlice";
@@ -11,37 +12,24 @@ import { setLoginState } from "shared/redux/modules/authSlice";
 function Login() {
   const [isSignUpPage, setSignUpPage] = useState(false); // 회원가입 페이지 여부
 
-  // user 정보 입력 form 초기 state
-  const initialUserInfoFormState = {
+  // 유저 id, 유저 비밀번호, 유저 닉네임 state 관리
+  const { formState, onFormChangeHandler, resetForm } = useForm({
     userId: "",
     userPassword: "",
     userNickname: "",
-  };
-  // user 정보 입력 form
-  const [userInfoFormState, setUserInfoFormState] = useState(initialUserInfoFormState);
-  const { userId, userPassword, userNickname } = userInfoFormState;
-
-  // input change handler
-  const onUserInfoFormChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setUserInfoFormState((prev) => ({ ...prev, [name]: value }));
-  };
+  });
+  const { userId, userPassword, userNickname } = formState;
 
   const dispatch = useDispatch();
-
-  // 회원가입이 완료되었을 때
-  const signedUp = () => {
-    setSignUpPage(false);
-    alert("회원가입이 완료되었습니다.");
-    setUserInfoFormState(initialUserInfoFormState);
-  };
 
   // Submit Handler
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const buttonType = e.nativeEvent.submitter.name;
     if (buttonType === "signUp") {
-      signedUp();
+      setSignUpPage(false);
+      alert("회원가입이 완료되었습니다.");
+      resetForm();
     } else if (buttonType === "login") {
       dispatch(setLoginState(true));
       alert("로그인 되었습니다.");
@@ -62,7 +50,7 @@ function Login() {
               minLength={4}
               maxLength={10}
               value={userId}
-              onChange={onUserInfoFormChangeHandler}
+              onChange={onFormChangeHandler}
               placeholder="아이디 (4~10글자)"
             />
           </InputField>
@@ -75,7 +63,7 @@ function Login() {
               minLength={4}
               maxLength={15}
               value={userPassword}
-              onChange={onUserInfoFormChangeHandler}
+              onChange={onFormChangeHandler}
               placeholder="비밀번호 (4~15글자)"
             />
           </InputField>
@@ -89,7 +77,7 @@ function Login() {
                 minLength={1}
                 maxLength={10}
                 value={userNickname}
-                onChange={onUserInfoFormChangeHandler}
+                onChange={onFormChangeHandler}
                 placeholder="닉네임 (1~10글자)"
               />
             </InputField>
