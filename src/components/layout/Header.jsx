@@ -16,6 +16,7 @@ const Header = () => {
           <StrongText>[ React 4 ]</StrongText> 의 팬레터함입니다.{" "}
         </HeaderContent>
       </StyledHeader>
+      {/* 하위 라우팅 컴포넌트 */}
       <Outlet />
     </>
   );

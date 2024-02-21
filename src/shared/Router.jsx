@@ -7,12 +7,13 @@ import Profile from "pages/Profile";
 import { useState } from "react";
 
 const Router = () => {
-  const [isLoggedIn, setLoginState] = useState(false);
+  const [isLoggedIn, setLoginState] = useState(false); // 로그인 상태
 
   return (
     <BrowserRouter>
       <Routes>
         {isLoggedIn ? (
+          // 로그인 한 경우
           <Route element={<Header />}>
             <Route path="/" element={<Home />} />
             <Route path="/detail/:id" element={<Detail />} />
@@ -20,6 +21,7 @@ const Router = () => {
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
         ) : (
+          // 로그인 하지 않은 경우
           <>
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<Navigate to="/login" />} />
