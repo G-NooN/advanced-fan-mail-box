@@ -27,7 +27,7 @@ const InputField = styled.div`
 
   & input,
   textarea {
-    width: 500px;
+    width: 100%;
     padding: 10px;
   }
 
@@ -47,7 +47,7 @@ const SelectField = styled.div`
   align-items: center;
 
   & select {
-    width: 120px;
+    width: 30%;
     height: 30px;
     padding-left: 5px;
   }
