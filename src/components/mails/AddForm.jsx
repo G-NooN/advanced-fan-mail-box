@@ -45,7 +45,7 @@ const AddForm = () => {
         content,
         avatar: "",
         writedTo: receiver,
-        createdAt: new Date(),
+        createdAt: new Date().toString(),
       };
       dispatch(addMail(newMail));
       alert("등록되었습니다.");
