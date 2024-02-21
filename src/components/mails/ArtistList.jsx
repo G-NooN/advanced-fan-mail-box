@@ -1,7 +1,7 @@
 import { SectionTitle } from "components/styles/GlobalStyle";
 import { ArtistsContainer, Artist } from "components/styles/ArtistListStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { setArtist } from "shared/redux/modules/activeArtist";
+import { setArtist } from "shared/redux/modules/activeArtistSlice";
 import { artistList } from "components/common/artistList";
 
 const ArtistList = () => {

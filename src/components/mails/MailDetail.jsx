@@ -10,7 +10,7 @@ import { CommonContext } from "context/CommonContext";
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { removeMail, updateMail } from "shared/redux/modules/mailList";
+import { removeMail, updateMail } from "shared/redux/modules/mailListSlice";
 
 const MailDetail = ({ id, foundMail }) => {
   const dispatch = useDispatch();

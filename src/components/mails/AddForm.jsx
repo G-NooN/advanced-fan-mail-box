@@ -2,7 +2,7 @@ import { SectionTitle, ButtonField } from "components/styles/GlobalStyle";
 import { Form, InputLabel, InputField, SelectField, Option } from "components/styles/AddFormStyle";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addMail } from "shared/redux/modules/mailList";
+import { addMail } from "shared/redux/modules/mailListSlice";
 import { artistList } from "components/common/artistList";
 import shortid from "shortid";
 
