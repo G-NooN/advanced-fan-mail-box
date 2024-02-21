@@ -5,7 +5,7 @@ import { setArtist } from "shared/redux/modules/activeArtistSlice";
 import { artistList } from "components/common/artistList";
 
 const ArtistList = () => {
-  const activeArtist = useSelector((state) => state.activeArtistSlice);
+  const activeArtist = useSelector((state) => state.activeArtist);
   const dispatch = useDispatch();
   // li가 아닌 빈 공간 클릭 시 return, li 클릭 시 target 설정
   const onClickArtist = (event) => {
