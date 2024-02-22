@@ -9,7 +9,8 @@ import useForm from "hooks/useForm";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { setLoginState } from "shared/redux/modules/authSlice";
+import { login } from "shared/redux/modules/authSlice";
+// import { setLoginState } from "shared/redux/modules/authSlice";
 
 function Login() {
   const [isSignUpPage, setSignUpPage] = useState(false); // 회원가입 페이지 여부
@@ -44,7 +45,8 @@ function Login() {
       }
       resetForm();
     } else if (buttonType === "login") {
-      dispatch(setLoginState(true));
+      dispatch(login());
+      // dispatch(setLoginState(true));
       toast.success("로그인 되었습니다.");
     } else return;
   };

@@ -7,7 +7,7 @@ import Profile from "pages/Profile";
 import { useSelector } from "react-redux";
 
 const Router = () => {
-  const isLoggedIn = useSelector((state) => state.auth); // 로그인 상태
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // 로그인 상태
 
   return (
     <BrowserRouter>
