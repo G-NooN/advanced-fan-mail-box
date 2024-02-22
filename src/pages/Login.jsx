@@ -29,6 +29,7 @@ function Login() {
     e.preventDefault();
     const buttonType = e.nativeEvent.submitter.name;
     if (buttonType === "signUp") {
+      // 회원가입
       try {
         const { data } = await axiosAPI.post("/register", {
           id: userId,
@@ -44,6 +45,7 @@ function Login() {
       }
       resetForm();
     } else if (buttonType === "login") {
+      // 로그인
       try {
         const { data } = await axiosAPI.post("/login?expiresIn=20m", {
           id: userId,
