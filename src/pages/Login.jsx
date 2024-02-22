@@ -10,7 +10,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { login } from "shared/redux/modules/authSlice";
-// import { setLoginState } from "shared/redux/modules/authSlice";
 
 function Login() {
   const [isSignUpPage, setSignUpPage] = useState(false); // 회원가입 페이지 여부
@@ -55,8 +54,7 @@ function Login() {
         );
         console.log(data);
         if (data.success) {
-          dispatch(login());
-          // dispatch(setLoginState(true));
+          dispatch(login(data.accessToken));
           toast.success("로그인 되었습니다.");
         }
       } catch (error) {
