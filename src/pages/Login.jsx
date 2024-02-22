@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Form, InputField } from "components/styles/AddFormStyle";
 import {
   LoginButtonField,
@@ -24,12 +25,23 @@ function Login() {
   const dispatch = useDispatch();
 
   // Submit Handler
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     const buttonType = e.nativeEvent.submitter.name;
     if (buttonType === "signUp") {
-      setSignUpPage(false);
-      toast.success("회원가입 되었습니다.");
+      try {
+        const { data } = await axios.post("https://moneyfulpublicpolicy.co.kr/register", {
+          id: userId,
+          password: userPassword,
+          nickname: userNickname,
+        });
+        console.log(data);
+        setSignUpPage(false);
+        toast.success(data.message);
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message);
+      }
       resetForm();
     } else if (buttonType === "login") {
       dispatch(setLoginState(true));
