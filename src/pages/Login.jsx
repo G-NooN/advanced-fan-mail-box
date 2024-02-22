@@ -45,9 +45,24 @@ function Login() {
       }
       resetForm();
     } else if (buttonType === "login") {
-      dispatch(login());
-      // dispatch(setLoginState(true));
-      toast.success("로그인 되었습니다.");
+      try {
+        const { data } = await axios.post(
+          "https://moneyfulpublicpolicy.co.kr/login?expiresIn=20m",
+          {
+            id: userId,
+            password: userPassword,
+          }
+        );
+        console.log(data);
+        if (data.success) {
+          dispatch(login());
+          // dispatch(setLoginState(true));
+          toast.success("로그인 되었습니다.");
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message);
+      }
     } else return;
   };
 
