@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosAPI from "api/axiosAPI";
 import { Form, InputField } from "components/styles/AddFormStyle";
 import {
   LoginButtonField,
@@ -30,7 +30,7 @@ function Login() {
     const buttonType = e.nativeEvent.submitter.name;
     if (buttonType === "signUp") {
       try {
-        const { data } = await axios.post("https://moneyfulpublicpolicy.co.kr/register", {
+        const { data } = await axiosAPI.post("/register", {
           id: userId,
           password: userPassword,
           nickname: userNickname,
@@ -45,13 +45,10 @@ function Login() {
       resetForm();
     } else if (buttonType === "login") {
       try {
-        const { data } = await axios.post(
-          "https://moneyfulpublicpolicy.co.kr/login?expiresIn=20m",
-          {
-            id: userId,
-            password: userPassword,
-          }
-        );
+        const { data } = await axiosAPI.post("/login?expiresIn=20m", {
+          id: userId,
+          password: userPassword,
+        });
         console.log(data);
         if (data.success) {
           dispatch(login(data.accessToken));
