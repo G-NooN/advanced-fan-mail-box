@@ -1,7 +1,7 @@
 import { SectionTitle, ButtonField } from "components/styles/GlobalStyle";
 import { Form, InputLabel, InputField, SelectField, Option } from "components/styles/AddFormStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { addMail } from "shared/redux/modules/mailListSlice";
+import { __addMail } from "shared/redux/modules/mailListSlice";
 import { artistList } from "components/common/artistList";
 import shortid from "shortid";
 import useForm from "hooks/useForm";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const AddForm = () => {
   const dispatch = useDispatch();
-  const { avatar, nickname } = useSelector((state) => state.auth);
+  const { avatar, nickname, userId } = useSelector((state) => state.auth);
 
   // 작성자 닉네임, 메일 내용, 받는 사람 정보 state 관리
   const { formState, onFormChangeHandler, resetForm } = useForm({
@@ -31,8 +31,9 @@ const AddForm = () => {
       avatar,
       writedTo: receiver,
       createdAt: new Date().toString(),
+      userId,
     };
-    dispatch(addMail(newMail));
+    dispatch(__addMail(newMail));
     toast.success("팬레터가 정상적으로 등록되었습니다.");
     resetForm();
   };
