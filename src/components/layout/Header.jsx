@@ -1,14 +1,36 @@
 import {
+  StyledNav,
+  RightNavContainer,
   StyledHeader,
   HeaderTitle,
   HeaderContent,
   StrongText,
+  NavbarText,
 } from "components/styles/HeaderStyle";
-import { Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { logout } from "shared/redux/modules/authSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // 로그아웃
+  const doLogout = () => {
+    dispatch(logout());
+    toast.success("정상적으로 로그아웃 되었습니다.");
+  };
+
   return (
     <>
+      <StyledNav>
+        <NavbarText onClick={() => navigate("/")}>HOME</NavbarText>
+        <RightNavContainer>
+          <NavbarText onClick={() => navigate("/profile")}>내 프로필</NavbarText>
+          <NavbarText onClick={doLogout}>로그아웃</NavbarText>
+        </RightNavContainer>
+      </StyledNav>
       <StyledHeader>
         <HeaderTitle>[React_4] Fan Mail Page</HeaderTitle>
         <HeaderContent>

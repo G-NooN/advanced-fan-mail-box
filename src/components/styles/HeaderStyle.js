@@ -1,5 +1,20 @@
 import styled from "styled-components";
 
+// navbar
+const StyledNav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: whitesmoke;
+`;
+
+// 오른쪽 nav container
+const RightNavContainer = styled.div`
+  display: flex;
+  gap: 30px;
+`;
+
 // 헤더
 const StyledHeader = styled.header`
   width: 100%;
@@ -45,4 +60,21 @@ const StrongText = styled.span`
   color: rebeccapurple;
 `;
 
-export { StyledHeader, HeaderTitle, HeaderContent, StrongText };
+// navbar Text
+const NavbarText = styled.span`
+  font-size: 20px;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+  }
+`;
+export {
+  StyledNav,
+  RightNavContainer,
+  StyledHeader,
+  HeaderTitle,
+  HeaderContent,
+  StrongText,
+  NavbarText,
+};
