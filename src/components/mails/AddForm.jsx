@@ -1,6 +1,6 @@
 import { SectionTitle, ButtonField } from "components/styles/GlobalStyle";
 import { Form, InputLabel, InputField, SelectField, Option } from "components/styles/AddFormStyle";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addMail } from "shared/redux/modules/mailListSlice";
 import { artistList } from "components/common/artistList";
 import shortid from "shortid";
@@ -9,14 +9,14 @@ import { toast } from "react-toastify";
 
 const AddForm = () => {
   const dispatch = useDispatch();
+  const { avatar, nickname } = useSelector((state) => state.auth);
 
   // 작성자 닉네임, 메일 내용, 받는 사람 정보 state 관리
   const { formState, onFormChangeHandler, resetForm } = useForm({
-    writerNickname: "",
     mailContent: "",
     receiver: "",
   });
-  const { writerNickname, mailContent, receiver } = formState;
+  const { mailContent, receiver } = formState;
 
   // 메일 추가
   const addNewMail = (event) => {
@@ -26,9 +26,9 @@ const AddForm = () => {
     // 새로운 메일
     const newMail = {
       id: shortid(),
-      nickname: writerNickname,
+      nickname,
       content: mailContent,
-      avatar: "",
+      avatar,
       writedTo: receiver,
       createdAt: new Date().toString(),
     };
@@ -44,17 +44,8 @@ const AddForm = () => {
       <Form onSubmit={addNewMail}>
         {/* 닉네임 */}
         <InputField>
-          <InputLabel htmlFor="writerNickname">닉네임</InputLabel>
-          <input
-            type="text"
-            id="writerNickname"
-            name="writerNickname"
-            required
-            maxLength={20}
-            value={writerNickname}
-            onChange={onFormChangeHandler}
-            placeholder="최대 20자까지만 작성할 수 있습니다."
-          />
+          <InputLabel>닉네임</InputLabel>
+          <p>{nickname}</p>
         </InputField>
         {/* 내용 */}
         <InputField>

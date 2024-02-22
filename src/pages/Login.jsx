@@ -16,11 +16,11 @@ function Login() {
 
   // 유저 id, 유저 비밀번호, 유저 닉네임 state 관리
   const { formState, onFormChangeHandler, resetForm } = useForm({
-    userId: "",
-    userPassword: "",
-    userNickname: "",
+    id: "",
+    password: "",
+    nickname: "",
   });
-  const { userId, userPassword, userNickname } = formState;
+  const { id, password, nickname } = formState;
 
   const dispatch = useDispatch();
 
@@ -32,9 +32,9 @@ function Login() {
       // 회원가입
       try {
         const { data } = await axiosAPI.post("/register", {
-          id: userId,
-          password: userPassword,
-          nickname: userNickname,
+          id,
+          password,
+          nickname,
         });
         console.log(data);
         setSignUpPage(false);
@@ -48,12 +48,13 @@ function Login() {
       // 로그인
       try {
         const { data } = await axiosAPI.post("/login?expiresIn=20m", {
-          id: userId,
-          password: userPassword,
+          id,
+          password,
         });
         console.log(data);
+        const { accessToken, avatar, nickname, userId } = data;
         if (data.success) {
-          dispatch(login(data.accessToken));
+          dispatch(login({ accessToken, avatar, nickname, userId }));
           toast.success("로그인 되었습니다.");
         }
       } catch (error) {
@@ -72,11 +73,11 @@ function Login() {
           <InputField>
             <input
               type="text"
-              name="userId"
+              name="id"
               required
               minLength={4}
               maxLength={10}
-              value={userId}
+              value={id}
               onChange={onFormChangeHandler}
               placeholder="아이디 (4~10글자)"
             />
@@ -85,11 +86,11 @@ function Login() {
           <InputField>
             <input
               type="password"
-              name="userPassword"
+              name="password"
               required
               minLength={4}
               maxLength={15}
-              value={userPassword}
+              value={password}
               onChange={onFormChangeHandler}
               placeholder="비밀번호 (4~15글자)"
             />
@@ -99,11 +100,11 @@ function Login() {
             <InputField>
               <input
                 type="text"
-                name="userNickname"
+                name="nickname"
                 required
                 minLength={1}
                 maxLength={10}
-                value={userNickname}
+                value={nickname}
                 onChange={onFormChangeHandler}
                 placeholder="닉네임 (1~10글자)"
               />
