@@ -23,6 +23,7 @@ const letterDbApi = axios.create({
   },
 });
 
+// 토큰 검사 요청
 userAuthApi.interceptors.request.use(
   (request) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -36,12 +37,14 @@ userAuthApi.interceptors.request.use(
   }
 );
 
+// 토큰 만료여부 반환
 userAuthApi.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
     toast.error(error.response.data.message);
+    // 만료 시 로그아웃
     if (error.response.data.message === "토큰이 만료되었습니다. 다시 로그인 해주세요.") {
       return store.dispatch(logout());
     }
