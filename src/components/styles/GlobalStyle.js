@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 
+// reset.css
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -45,6 +46,7 @@ table {
   border-spacing: 0;
 }
 
+// box-sizing 적용
 * {
   box-sizing: border-box;
 }
@@ -64,25 +66,30 @@ code {
 }
 `;
 
+// 전체 page
 const PageContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   position: relative;
 `;
 
+// section
 const SectionContainer = styled.div`
   margin: 20px;
 `;
 
+// section 제목
 const SectionTitle = styled.h2`
   font-size: 20px;
   font-weight: 900;
 `;
 
+// 버튼 container
 const ButtonField = styled.div`
   display: flex;
   justify-content: flex-end;
 
+  // 버튼
   & button {
     width: 100px;
     height: 40px;
@@ -101,6 +108,7 @@ const ButtonField = styled.div`
   }
 `;
 
+// 프로필 사진
 const Avatar = styled.figure`
   width: 50px;
   height: 50px;
@@ -115,11 +123,13 @@ const Avatar = styled.figure`
   }
 `;
 
+// 닉네임
 const Nickname = styled.span`
   font-size: 20px;
   font-weight: 700;
 `;
 
+// 작성자 정보 container
 const WriterInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -127,6 +137,7 @@ const WriterInfo = styled.div`
   align-items: center;
 `;
 
+// HOME 이동 버튼
 const HomeButton = styled.button`
   position: absolute;
   bottom: 40px;

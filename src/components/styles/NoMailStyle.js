@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 메일이 없을 때 출력하는 container
 const NoMailContainer = styled.div`
   text-align: center;
   width: 600px;

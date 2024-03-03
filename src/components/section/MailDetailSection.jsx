@@ -5,6 +5,7 @@ const MailDetailSection = ({ id, foundMail }) => {
   return (
     <SectionContainer>
       <SectionTitle>Mail Detail</SectionTitle>
+      {/* 메일 전체 내용 */}
       <MailDetail id={id} foundMail={foundMail} />
     </SectionContainer>
   );

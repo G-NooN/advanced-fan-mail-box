@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 
+// form
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -12,19 +13,21 @@ const Form = styled.form`
   border-radius: 5px;
 `;
 
+// 입력 항목 제목
 const InputLabel = styled.label`
   width: 80px;
   font-size: 16px;
   font-weight: 700;
 `;
 
+// <input> <textarea> container
 const InputField = styled.div`
   display: flex;
   align-items: center;
 
   & input,
   textarea {
-    width: 500px;
+    width: 100%;
     padding: 10px;
   }
 
@@ -38,17 +41,19 @@ const InputField = styled.div`
   }
 `;
 
+// <select> container
 const SelectField = styled.div`
   display: flex;
   align-items: center;
 
   & select {
-    width: 120px;
+    width: 30%;
     height: 30px;
     padding-left: 5px;
   }
 `;
 
+// <option>
 const Option = styled.option`
   font-weight: 600;
   ${(option) => {

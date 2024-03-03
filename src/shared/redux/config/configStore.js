@@ -1,8 +1,12 @@
-import { createStore, combineReducers } from "redux";
-import activeArtist from "shared/redux/modules/activeArtist";
-import mailList from "shared/redux/modules/mailList";
+import { configureStore } from "@reduxjs/toolkit";
+import activeArtist from "shared/redux/modules/activeArtistSlice";
+import mailList from "shared/redux/modules/mailListSlice";
+import auth from "shared/redux/modules/authSlice";
 
-const rootReducer = combineReducers({ activeArtist, mailList });
-const store = createStore(rootReducer);
+const store = configureStore({
+  reducer: { activeArtist, mailList, auth },
+});
 
-export default store;
+const getStore = () => store;
+
+export default getStore;
