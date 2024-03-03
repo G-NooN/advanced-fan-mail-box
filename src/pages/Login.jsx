@@ -1,4 +1,4 @@
-import axiosAPI from "api/axiosAPI";
+import { userAuthApi } from "api/axiosAPI";
 import { Form, InputField } from "components/styles/AddFormStyle";
 import {
   LoginButtonField,
@@ -9,7 +9,7 @@ import useForm from "hooks/useForm";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { login } from "shared/redux/modules/authSlice";
+import { __login } from "shared/redux/modules/authSlice";
 
 function Login() {
   const [isSignUpPage, setSignUpPage] = useState(false); // 회원가입 페이지 여부
@@ -31,12 +31,11 @@ function Login() {
     if (buttonType === "signUp") {
       // 회원가입
       try {
-        const { data } = await axiosAPI.post("/register", {
+        const { data } = await userAuthApi.post("/register", {
           id,
           password,
           nickname,
         });
-        console.log(data);
         setSignUpPage(false);
         toast.success(data.message);
       } catch (error) {
@@ -46,21 +45,7 @@ function Login() {
       resetForm();
     } else if (buttonType === "login") {
       // 로그인
-      try {
-        const { data } = await axiosAPI.post("/login?expiresIn=20m", {
-          id,
-          password,
-        });
-        console.log(data);
-        const { accessToken, avatar, nickname, userId } = data;
-        if (data.success) {
-          dispatch(login({ accessToken, avatar, nickname, userId }));
-          toast.success("로그인 되었습니다.");
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error(error.response.data.message);
-      }
+      dispatch(__login({ id, password }));
     } else return;
   };
 
