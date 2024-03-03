@@ -8,7 +8,7 @@ import {
 } from "components/styles/MailDetailStyle";
 import { CommonContext } from "context/CommonContext";
 import { useContext, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { removeMail, updateMail } from "shared/redux/modules/mailListSlice";
@@ -16,9 +16,11 @@ import { removeMail, updateMail } from "shared/redux/modules/mailListSlice";
 const MailDetail = ({ id, foundMail }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userId = useSelector((state) => state.auth.userId); // 유저 아이디
   const { defaultAvatar, options } = useContext(CommonContext);
   const [editMail, setEditMail] = useState(false); // 메일 수정 section 전환 여부
   const [editedContent, setEditedContent] = useState(""); // 수정된 내용
+  const validUser = foundMail.userId === userId; // 작성자 확인
 
   // [수정] 버튼 클릭 -> 수정 section으로 전환
   const checkEditMail = () => {
@@ -89,10 +91,13 @@ const MailDetail = ({ id, foundMail }) => {
         <>
           {/* 출력 상태 */}
           <FullMailContent>{foundMail.content}</FullMailContent>
-          <ButtonField>
-            <button onClick={checkEditMail}>수정</button>
-            <button onClick={deleteMail}>삭제</button>
-          </ButtonField>
+          {/* 작성자일 때만 출력 */}
+          {validUser && (
+            <ButtonField>
+              <button onClick={checkEditMail}>수정</button>
+              <button onClick={deleteMail}>삭제</button>
+            </ButtonField>
+          )}
         </>
       )}
     </MailDetailContainer>

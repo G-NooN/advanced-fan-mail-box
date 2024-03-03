@@ -5,7 +5,7 @@ import ArtistPhotoSection from "components/section/ArtistPhotoSection";
 import MailDetailSection from "components/section/MailDetailSection";
 
 const Detail = () => {
-  const mailList = useSelector((state) => state.mailList);
+  const mailList = useSelector((state) => state.mailList.letters);
   const id = useParams().id;
   const foundMail = mailList.find((mail) => mail.id === id);
   return (
