@@ -3,7 +3,6 @@ import Header from "components/layout/Header";
 import Home from "pages/Home";
 import Detail from "pages/Detail";
 import Login from "pages/Login";
-import Profile from "pages/Profile";
 import { useSelector } from "react-redux";
 
 const Router = () => {
@@ -17,7 +16,6 @@ const Router = () => {
           <Route element={<Header />}>
             <Route path="/" element={<Home />} />
             <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         ) : (

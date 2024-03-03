@@ -8,13 +8,14 @@ import {
   NavbarText,
 } from "components/styles/HeaderStyle";
 import { useDispatch } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logout } from "shared/redux/modules/authSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { pathname: currentLocation } = useLocation();
 
   // 로그아웃
   const doLogout = () => {
@@ -25,9 +26,8 @@ const Header = () => {
   return (
     <>
       <StyledNav>
-        <NavbarText onClick={() => navigate("/")}>HOME</NavbarText>
+        {currentLocation !== "/" && <NavbarText onClick={() => navigate("/")}>HOME</NavbarText>}
         <RightNavContainer>
-          <NavbarText onClick={() => navigate("/profile")}>내 프로필</NavbarText>
           <NavbarText onClick={doLogout}>로그아웃</NavbarText>
         </RightNavContainer>
       </StyledNav>
