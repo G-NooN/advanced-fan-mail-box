@@ -11,7 +11,7 @@ import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { __removeMail, updateMail } from "shared/redux/modules/mailListSlice";
+import { __removeMail, __updateMail } from "shared/redux/modules/mailListSlice";
 
 const MailDetail = ({ id, foundMail }) => {
   const dispatch = useDispatch();
@@ -42,8 +42,7 @@ const MailDetail = ({ id, foundMail }) => {
       return toast.warning("수정된 내용이 없습니다.");
     }
     // 수정된 내용이 존재하는 경우
-    dispatch(updateMail({ id, editedContent }));
-    toast.success("팬레터가 정상적으로 수정되었습니다.");
+    dispatch(__updateMail({ id, editedContent }));
     setEditMail(false);
     setEditedContent("");
   };

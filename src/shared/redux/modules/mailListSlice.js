@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   letters: [],
-  isLoading: false,
+  isLoading: true,
   isError: false,
   error: null,
 };
@@ -37,7 +37,18 @@ export const __addMail = createAsyncThunk("addMail", async (newMail, thunkAPI) =
 });
 
 // 메일 수정
-export const __updateMail = createAsyncThunk();
+export const __updateMail = createAsyncThunk(
+  "updateMail",
+  async ({ id, editedContent }, thunkAPI) => {
+    try {
+      await letterDbApi.patch(`letters/${id}`, { content: editedContent });
+      const mailList = await getMailListFromDB();
+      return thunkAPI.fulfillWithValue(mailList);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 // 메일 삭제
 export const __removeMail = createAsyncThunk("removeMail", async (mailId, thunkAPI) => {
@@ -53,18 +64,7 @@ export const __removeMail = createAsyncThunk("removeMail", async (mailId, thunkA
 const mailListSlice = createSlice({
   name: "mailList",
   initialState,
-  reducers: {
-    addMail: (state, action) => [...state, action.payload],
-    updateMail: (state, action) =>
-      state.map((mail) => {
-        if (mail.id === action.payload.id) {
-          return { ...mail, content: action.payload.editedContent };
-        } else {
-          return mail;
-        }
-      }),
-    removeMail: (state, action) => state.filter((mail) => mail.id !== action.payload),
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // 메일 가져오기 진행중
@@ -119,9 +119,26 @@ const mailListSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
+      })
+      // 메일 수정 진행중
+      .addCase(__updateMail.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      // 메일 수정 성공
+      .addCase(__updateMail.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
+        toast.success("팬레터가 정상적으로 수정되었습니다.");
+      })
+      // 메일 수정 실패
+      .addCase(__updateMail.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
       });
   },
 });
 
-export const { addMail, updateMail, removeMail } = mailListSlice.actions;
 export default mailListSlice.reducer;
