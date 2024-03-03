@@ -11,7 +11,7 @@ import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { removeMail, updateMail } from "shared/redux/modules/mailListSlice";
+import { __removeMail, updateMail } from "shared/redux/modules/mailListSlice";
 
 const MailDetail = ({ id, foundMail }) => {
   const dispatch = useDispatch();
@@ -51,8 +51,7 @@ const MailDetail = ({ id, foundMail }) => {
   const deleteMail = () => {
     const checkDeleteMail = window.confirm("정말 삭제하시겠습니까?");
     if (!checkDeleteMail) return;
-    dispatch(removeMail(id));
-    toast.success("팬레터가 정상적으로 삭제되었습니다.");
+    dispatch(__removeMail(id));
     navigate("/");
   };
 

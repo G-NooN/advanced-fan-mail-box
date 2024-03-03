@@ -40,7 +40,15 @@ export const __addMail = createAsyncThunk("addMail", async (newMail, thunkAPI) =
 export const __updateMail = createAsyncThunk();
 
 // 메일 삭제
-export const __removeMail = createAsyncThunk();
+export const __removeMail = createAsyncThunk("removeMail", async (mailId, thunkAPI) => {
+  try {
+    await letterDbApi.delete(`/letters/${mailId}`);
+    const mailList = await getMailListFromDB();
+    return thunkAPI.fulfillWithValue(mailList);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 const mailListSlice = createSlice({
   name: "mailList",
@@ -90,6 +98,24 @@ const mailListSlice = createSlice({
       })
       // 메일 추가 실패
       .addCase(__addMail.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      // 메일 삭제 진행중
+      .addCase(__removeMail.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      // 메일 삭제 성공
+      .addCase(__removeMail.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
+        toast.success("팬레터가 정상적으로 삭제되었습니다.");
+      })
+      // 메일 삭제 실패
+      .addCase(__removeMail.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
