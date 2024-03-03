@@ -1,3 +1,5 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { removeMail, updateMail } from "api/mutationFunc";
 import { ButtonField, Avatar, Nickname, WriterInfo } from "components/styles/GlobalStyle";
 import {
   MailDetailContainer,
@@ -8,14 +10,27 @@ import {
 } from "components/styles/MailDetailStyle";
 import { CommonContext } from "context/CommonContext";
 import { useContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { __removeMail, __updateMail } from "shared/redux/modules/mailListSlice";
 
 const MailDetail = ({ id, foundMail }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+  const { mutate: removeMailMutation } = useMutation({
+    mutation: removeMail,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(["letters"]);
+    },
+  });
+  const { mutate: updateMailMutation } = useMutation({
+    mutation: updateMail,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(["letters"]);
+    },
+  });
+
   const userId = useSelector((state) => state.auth.userId); // 유저 아이디
   const { defaultAvatar, options } = useContext(CommonContext);
   const [editMail, setEditMail] = useState(false); // 메일 수정 section 전환 여부
@@ -42,7 +57,7 @@ const MailDetail = ({ id, foundMail }) => {
       return toast.warning("수정된 내용이 없습니다.");
     }
     // 수정된 내용이 존재하는 경우
-    dispatch(__updateMail({ id, editedContent }));
+    updateMailMutation({ id, editedContent });
     setEditMail(false);
     setEditedContent("");
   };
@@ -50,7 +65,7 @@ const MailDetail = ({ id, foundMail }) => {
   const deleteMail = () => {
     const checkDeleteMail = window.confirm("정말 삭제하시겠습니까?");
     if (!checkDeleteMail) return;
-    dispatch(__removeMail(id));
+    removeMailMutation(id);
     navigate("/");
   };
 

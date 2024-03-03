@@ -1,19 +1,17 @@
 import { PageContainer } from "components/styles/GlobalStyle";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import ArtistPhotoSection from "components/section/ArtistPhotoSection";
 import MailDetailSection from "components/section/MailDetailSection";
-import { useEffect } from "react";
-import { __getMailList } from "shared/redux/modules/mailListSlice";
+import { useQuery } from "@tanstack/react-query";
+import { getMailList } from "api/queryFunc";
 
 const Detail = () => {
-  const { letters: mailList, isLoading } = useSelector((state) => state.mailList);
-  const { id } = useParams();
-  const dispatch = useDispatch();
+  const { data: mailList, isLoading } = useQuery({
+    queryKey: ["letters"],
+    queryFn: getMailList,
+  });
 
-  useEffect(() => {
-    dispatch(__getMailList());
-  }, [dispatch]);
+  const { id } = useParams();
 
   if (isLoading) {
     return <p>로딩중...</p>;

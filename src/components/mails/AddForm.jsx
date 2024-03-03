@@ -1,13 +1,20 @@
 import { SectionTitle, ButtonField } from "components/styles/GlobalStyle";
 import { Form, InputLabel, InputField, SelectField, Option } from "components/styles/AddFormStyle";
-import { useDispatch, useSelector } from "react-redux";
-import { __addMail } from "shared/redux/modules/mailListSlice";
+import { useSelector } from "react-redux";
 import { artistList } from "components/common/artistList";
 import shortid from "shortid";
 import useForm from "hooks/useForm";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addMail } from "api/mutationFunc";
 
 const AddForm = () => {
-  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const { mutate: addMailMutation } = useMutation({
+    mutationFn: addMail,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(["letters"]);
+    },
+  });
   const { avatar, nickname, userId } = useSelector((state) => state.auth);
 
   // 작성자 닉네임, 메일 내용, 받는 사람 정보 state 관리
@@ -32,7 +39,7 @@ const AddForm = () => {
       createdAt: new Date().toString(),
       userId,
     };
-    dispatch(__addMail(newMail));
+    addMailMutation(newMail);
     resetForm();
   };
 
