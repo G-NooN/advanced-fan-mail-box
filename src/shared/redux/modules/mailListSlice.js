@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { letterDbApi } from "api/axiosAPI";
+import { toast } from "react-toastify";
 
 const initialState = {
   letters: [],
@@ -11,7 +12,6 @@ const initialState = {
 // DB로부터 최신순으로 메일 리스트 가져오기
 const getMailListFromDB = async () => {
   const { data } = await letterDbApi.get("/letters?_sort=-createdAt");
-  console.log(data);
   return data;
 };
 
@@ -19,7 +19,6 @@ const getMailListFromDB = async () => {
 export const __getMailList = createAsyncThunk("getMailList", async (mailList, thunkAPI) => {
   try {
     const mailList = await getMailListFromDB();
-    console.log(mailList);
     return thunkAPI.fulfillWithValue(mailList);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -31,7 +30,6 @@ export const __addMail = createAsyncThunk("addMail", async (newMail, thunkAPI) =
   try {
     await letterDbApi.post("/letters", newMail);
     const mailList = await getMailListFromDB();
-    console.log(mailList);
     return thunkAPI.fulfillWithValue(mailList);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -88,6 +86,7 @@ const mailListSlice = createSlice({
         state.letters = action.payload;
         state.isError = false;
         state.error = null;
+        toast.success("팬레터가 정상적으로 등록되었습니다.");
       })
       // 메일 추가 실패
       .addCase(__addMail.rejected, (state, action) => {

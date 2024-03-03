@@ -5,7 +5,6 @@ import { __addMail } from "shared/redux/modules/mailListSlice";
 import { artistList } from "components/common/artistList";
 import shortid from "shortid";
 import useForm from "hooks/useForm";
-import { toast } from "react-toastify";
 
 const AddForm = () => {
   const dispatch = useDispatch();
@@ -34,7 +33,6 @@ const AddForm = () => {
       userId,
     };
     dispatch(__addMail(newMail));
-    toast.success("팬레터가 정상적으로 등록되었습니다.");
     resetForm();
   };
 
