@@ -16,7 +16,7 @@ const initialState = {
 
 export const __login = createAsyncThunk("login", async ({ id, password }, thunkAPI) => {
   try {
-    const { data } = await userAuthApi.post("/login?expiresIn=10s", {
+    const { data } = await userAuthApi.post("/login?expiresIn=30s", {
       id,
       password,
     });
